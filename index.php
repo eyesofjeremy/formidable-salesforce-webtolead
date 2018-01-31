@@ -72,7 +72,7 @@ function frm_save_sf_lead($entry_id, $form_id){
   // Okay, so let's see if we are saving the SF data
   if( $push_to_salesforce ) {
     
-    $salesforce_url = 'https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
+    $salesforce_url = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
     
     // $post['Project__c']       = 'Basecamp'; // This does not seem to be working. And looks like it won't: https://www.google.com/search?q=web-to-lead+salesforce+lookup 
     $post['oid']              = '00DA0000000Zayi'; //set your OID number here
