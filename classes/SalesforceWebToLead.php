@@ -23,25 +23,60 @@ class SalesforceWebToLead extends FrmFormAction {
    * Get the HTML for your action settings
    */
   function form( $form_action, $args = array() ) {
-  extract($args);
-  $action_control = $this;
-  ?>
+
+    extract($args);
+    $action_control = $this;
+    $form_fields = $this->get_field_options( $args['form']->id );
+    $form_post_content = $form_action->post_content;
+    ?>
   <table class="form-table frm-no-margin">
     <tbody>
       <tr>
         <th>
-          <label>Template name</label>
+          <label>Organization ID</label>
         </th>
         <td>
-          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['template_name']); ?>" name="<?php echo $action_control->get_field_name('template_name') ?>">
+          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['oid']); ?>" name="<?php echo $action_control->get_field_name('oid') ?>">
         </td>
       </tr>
       <tr>
         <th>
-          <label>Content</label>
+          <label>Lead Type</label>
         </th>
         <td>
-          <textarea class="large-text" rows="5" cols="50" name="<?php echo $action_control->get_field_name('my_content') ?>"><?php echo esc_attr($form_action->post_content['my_content']); ?></textarea>
+          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['lead_type']); ?>" name="<?php echo $action_control->get_field_name('lead_type') ?>">
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>IDStatus</label>
+        </th>
+        <td>
+          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['id_status']); ?>" name="<?php echo $action_control->get_field_name('id_status') ?>">
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Full Name</label>
+        </th>
+        <td>
+          <?php $this->select_field_for('full_name', $form_post_content, $action_control, $form_fields); ?>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Email Address</label>
+        </th>
+        <td>
+          <?php $this->select_field_for('email', $form_post_content, $action_control, $form_fields); ?>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <label>Phone Number</label>
+        </th>
+        <td>
+          <?php $this->select_field_for('phone', $form_post_content, $action_control, $form_fields); ?>
         </td>
       </tr>
     </tbody>
@@ -50,14 +85,48 @@ class SalesforceWebToLead extends FrmFormAction {
   // If you have scripts to include, you can include theme here
   
   }
-
+  
+  private function select_field_for( $action_name, $form_post_content, $action_control, $form_fields ) {
+    ?>
+    <select name="<?php echo esc_attr( $action_control->get_field_name( $action_name ) ) ?>">
+      <option value=""><?php _e( '&mdash; Select &mdash;' ) ?></option>
+      <?php
+      $selected = false;
+      foreach ( $form_fields as $field ) {
+        if ( $form_post_content[ $action_name ] == $field->id ) {
+          $selected = true;
+        }
+        ?>
+        <option value="<?php echo esc_attr( $field->id ) ?>" <?php selected( $form_post_content[ $action_name ], $field->id ) ?>><?php
+          echo esc_attr( FrmAppHelper::truncate( $field->name, 50, 1 ) );
+          unset( $field );
+          ?></option>
+        <?php
+      }
+      ?>
+    </select>
+<?php
+  }
+  
+  private function get_field_options( $form_id ) {
+    $form_fields = FrmField::getAll( array(
+      'fi.form_id' => absint( $form_id ),
+      'fi.type not' => array( 'divider', 'end_divider', 'html', 'break', 'captcha', 'rte', 'form' ),
+    ), 'field_order' );
+    return $form_fields;
+  }
+  
   /**
   * Add the default values for your options here
   */
   function get_defaults() {
     return array(
-      'template_name' => '',
-      'my_content'=> '',
+      'oid'       => '',
+      'lead_type' => '',
+      'id_status' => '',
+      'full_name' => '',
+      'email'     => '',
+      'phone'     => '',
     );
   }
 }
