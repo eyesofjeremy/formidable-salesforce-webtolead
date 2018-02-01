@@ -36,9 +36,12 @@ function frm_save_sf_lead($entry_id, $form_id){
       $post['first_name']     = $full_name[0];
       $post['last_name']      = $full_name[1];
       $post['email']          = $_POST['item_meta'][19]; // ID of the email field
-      
-      $post['Lead_Type__c']      = 'Prospect'; // Field key is Lead Type in SalesForce for this client
-      $post['IDStatus__c']       = 'Basecamp - Residential Lead/Keep in Loop'; // Field key is ID Status in SalesForce for this client
+  
+      // "Lead Type" field is id/name 00N1600000F1ENi in Web-to-Lead. This is different if I regenerate...
+      $post['00N1600000F1ENi']      = 'Prospect'; // Field key is Lead Type in SalesForce for this client
+  
+      // "IDStatus" field is id/name 00NA00000041hp0 in Web-to-Lead. This is different if I regenerate...
+      $post['00NA00000041hp0']       = 'Basecamp - Residential Lead/Keep in Loop'; // Field key is ID Status in SalesForce for this client
 
       $push_to_salesforce = TRUE; // Yep, want to send to SalesForce
       break;
@@ -57,9 +60,12 @@ function frm_save_sf_lead($entry_id, $form_id){
       // And also getting right field keys in SalesForce.
       // A list of field keys can be found in Name (top right) > Setup > Customize > Leads > Fields
       // $post['street']         = $_POST['item_meta'][80]; // ID of ADDRESS field
-      
-      $post['Lead_Type__c']      = 'Buyer'; // Field key is Lead Type in SalesForce for this client
-      $post['IDStatus__c']       = 'Basecamp - S&amp;R Priority List $250 Deposit'; // Field key is ID Status in SalesForce for this client
+  
+      // "Lead Type" field is id/name 00N1600000F1ENi in Web-to-Lead. This is different if I regenerate...
+      $post['00N1600000F1ENi']      = 'Buyer'; // Field key is Lead Type in SalesForce for this client
+
+      // "IDStatus" field is id/name 00NA00000041hp0 in Web-to-Lead. This is different if I regenerate...
+      $post['00NA00000041hp0']       = 'Basecamp - S&amp;R Priority List $250 Deposit'; // Field key is ID Status in SalesForce for this client
 
       $push_to_salesforce = TRUE; // Yep, want to send to SalesForce
       break;
