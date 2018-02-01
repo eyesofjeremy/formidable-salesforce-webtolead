@@ -111,4 +111,13 @@ function frm_save_sf_notice($entry_id, $form_id){
 }
 
 
+add_action('frm_registered_form_actions', 'register_salesforce_webtolead_action');
+function register_salesforce_webtolead_action( $actions ) {
+  
+  $actions['salesforce_webtolead'] = 'SalesforceWebToLead';
+
+  include_once( dirname( __FILE__ ) . '/classes/SalesforceWebToLead.php');
+  
+  return $actions;
+}
 ?>
