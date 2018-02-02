@@ -153,7 +153,7 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
   $id_status            = $settings['id_status'];
   
   // Split the name for saving purposes.
-  $split_name           = frm_save_sf_split_name( $_POST['item_meta'][ $full_name_field ] );
+  $split_name           = frm_save_sf_split_name( $full_name );
       
   $post['first_name']   = $split_name[0];
   $post['last_name']    = $split_name[1];
