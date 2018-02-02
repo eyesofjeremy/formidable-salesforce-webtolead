@@ -9,7 +9,7 @@ Author: Jeremy Carlson
 
 // More info: https://formidableforms.com/help-desk/salesforce-plugin/#comment-15620
 
-add_action('frm_after_create_entry', 'frm_save_sf_lead' , 20, 2);
+// add_action('frm_after_create_entry', 'frm_save_sf_lead' , 20, 2);
 
 // uses regex that accepts any word character or hyphen in last name
 function frm_save_sf_split_name($name) {
@@ -111,13 +111,77 @@ function frm_save_sf_notice($entry_id, $form_id){
 }
 
 
-add_action('frm_registered_form_actions', 'register_salesforce_webtolead_action');
-function register_salesforce_webtolead_action( $actions ) {
+add_action('frm_registered_form_actions', 'register_salesforcewebtolead_action');
+function register_salesforcewebtolead_action( $actions ) {
   
-  $actions['salesforce_webtolead'] = 'SalesforceWebToLead';
+  $actions['salesforcewebtolead'] = 'SalesforceWebToLead';
 
   include_once( dirname( __FILE__ ) . '/classes/SalesforceWebToLead.php');
   
   return $actions;
 }
+
+add_action('frm_trigger_salesforcewebtolead_create_action', 'sfw2l_create_action_trigger', 10, 3);
+function sfw2l_create_action_trigger($action, $entry, $form) {
+  salesforce_webtolead_go( $action, $entry, $form );
+}
+
+add_action('frm_trigger_salesforcewebtolead_update_action', 'sfw2l_update_action_trigger', 10, 3);
+function sfw2l_update_action_trigger($action, $entry, $form) {
+  salesforce_webtolead_go( $action, $entry, $form );
+}
+
+function salesforce_webtolead_go( $action, $entry, $form ) {
+  $settings = $action->post_content;
+  
+  
+  $post = array();
+  
+  $email      = $_POST['item_meta'][ $settings['email'] ];
+  $oid        = $settings['oid'];
+  
+  // If email or organization are empty, can't do anything.
+  if( empty( $email ) || empty( $oid ) ) {
+  
+    // TODO: send debug message to [admin_email]
+    return;
+  }
+  
+  $full_name            = $_POST['item_meta'][ $settings['full_name'] ];
+  $lead_type            = $settings['lead_type'];
+  $id_status            = $settings['id_status'];
+  
+  // Split the name for saving purposes.
+  $split_name           = frm_save_sf_split_name( $_POST['item_meta'][ $full_name_field ] );
+      
+  $post['first_name']   = $split_name[0];
+  $post['last_name']    = $split_name[1];
+  $post['email']        = $email;
+      
+  $post['Lead_Type__c'] = $lead_type;
+  $post['IDStatus__c']  = $id_status;
+  
+  $salesforce_url       = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8';
+  
+  // $post['Project__c']       = 'Basecamp'; // This does not seem to be working. And looks like it won't: https://www.google.com/search?q=web-to-lead+salesforce+lookup
+  $post['oid']          = $oid;
+  $post['lead_source']  = $settings['lead_source'];
+  $post['debug']        = 0;
+  
+  // Set SSL verify to false because of server issues.
+  $args = array(
+    'body'         => $post,
+    'headers'     => array(
+      'user-agent' => 'Formidable to Salesforce plugin - WordPress; '. get_bloginfo('url')
+    ),
+    'sslverify'    => false,
+  );
+  
+  print_R( $args );
+  die;
+  // $result = wp_remote_post($salesforce_url, $args);
+
+  
+}
+
 ?>

@@ -8,9 +8,9 @@
 
 class SalesforceWebToLead extends FrmFormAction {
 
-  function __construct( $id_base = 'salesforce_webtolead', $name = 'Salesforce Web-to-Lead' ) {
+  function __construct( $id_base = 'salesforcewebtolead', $name = 'Salesforce Web-to-Lead' ) {
     $action_ops = array(
-      'classes'   => 'dashicons dashicons-format-aside',
+      'classes'   => 'dashicons dashicons-groups',
       'limit'     => 99,
       'active'    => true,
       'priority'  => 50,
