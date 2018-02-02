@@ -148,6 +148,7 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
   }
   
   $full_name            = $_POST['item_meta'][ $settings['full_name'] ];
+  $phone                = $_POST['item_meta'][ $settings['phone'] ];
   $lead_type            = $settings['lead_type'];
   $id_status            = $settings['id_status'];
   
@@ -157,6 +158,7 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
   $post['first_name']   = $split_name[0];
   $post['last_name']    = $split_name[1];
   $post['email']        = $email;
+  $post['phone']        = $phone;
       
   $post['Lead_Type__c'] = $lead_type;
   $post['IDStatus__c']  = $id_status;
