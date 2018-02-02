@@ -179,11 +179,9 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
     'sslverify'    => false,
   );
   
-  print_R( $args );
-  die;
-  // $result = wp_remote_post($salesforce_url, $args);
+  $result = wp_remote_post($salesforce_url, $args);
 
-  
+  return $result;
 }
 
 ?>
