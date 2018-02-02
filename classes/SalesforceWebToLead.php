@@ -49,6 +49,14 @@ class SalesforceWebToLead extends FrmFormAction {
       </tr>
       <tr>
         <th>
+          <label>Lead Source</label>
+        </th>
+        <td>
+          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['lead_source']); ?>" name="<?php echo $action_control->get_field_name('lead_source') ?>">
+        </td>
+      </tr>
+      <tr>
+        <th>
           <label>IDStatus</label>
         </th>
         <td>
@@ -121,12 +129,13 @@ class SalesforceWebToLead extends FrmFormAction {
   */
   function get_defaults() {
     return array(
-      'oid'       => '',
-      'lead_type' => '',
-      'id_status' => '',
-      'full_name' => '',
-      'email'     => '',
-      'phone'     => '',
+      'oid'         => '',
+      'lead_type'   => 'Lead',
+      'lead_source' => 'Website',
+      'id_status'   => '',
+      'full_name'   => '',
+      'email'       => '',
+      'phone'       => '',
     );
   }
 }
