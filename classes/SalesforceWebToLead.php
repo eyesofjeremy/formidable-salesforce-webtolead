@@ -46,11 +46,7 @@ class SalesforceWebToLead extends FrmFormAction {
           <label>Lead Type</label>
         </th>
         <td>
-            <select name="<?php echo $action_control->get_field_name['lead_type']; ?>">
-              <option value=""><?php _e( '&mdash; Select &mdash;' ) ?></option>
-              <option value="Contact" <?php selected( $form_action->post_content['lead_type'], 'Contact', true ); ?>>Contact</option>
-              <option value="Lead" <?php selected( $form_action->post_content['lead_type'], 'Lead', true ); ?>>Lead</option>
-            </select>
+          <input type="text" class="large-text" value="<?php echo esc_attr($form_action->post_content['lead_type']); ?>" name="<?php echo $action_control->get_field_name('lead_type') ?>">
         </td>
       </tr>
       <tr>
