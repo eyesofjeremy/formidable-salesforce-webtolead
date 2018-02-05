@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jeremy
- * Date: 2/1/18
- * Time: 11:36 AM
+ * SalesforceWebToLead
+ *
+ * @description: extension of Formidable FrmFormAction specific to this plugin
+ * @since: 1.2
+ * @created: 2/1/18
  */
 
 class SalesforceWebToLead extends FrmFormAction {

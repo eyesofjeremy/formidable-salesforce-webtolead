@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Formidable to SalesForce quick!
-Description: Save your leads to SalesForce. Based heavily on code from Formidable team, Strategy 11. Fields are hard-coded into this plugin; if you need to edit **anything**, you will have to dig into the code.
-Version: 1.1
+Plugin Name: Formidable SalesForce Web-To-Lead
+Description: Save Leads to SalesForce using your Formidable Forms
+Version: 1.2
 Author URI: http://jeremycarlson.com
 Author: Jeremy Carlson
 */
