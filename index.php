@@ -7,8 +7,6 @@ Author URI: http://jeremycarlson.com
 Author: Jeremy Carlson
 */
 
-// More info: https://formidableforms.com/help-desk/salesforce-plugin/#comment-15620
-
 // uses regex that accepts any word character or hyphen in last name
 function frm_save_sf_split_name($name) {
     $name = trim($name);
@@ -37,6 +35,7 @@ function sfw2l_update_action_trigger($action, $entry, $form) {
   salesforce_webtolead_go( $action, $entry, $form );
 }
 
+// More info: https://formidableforms.com/help-desk/salesforce-plugin/#comment-15620
 function salesforce_webtolead_go( $action, $entry, $form ) {
   $settings = $action->post_content;
   
