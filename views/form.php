@@ -38,9 +38,28 @@
 	<tr>
 		<th>
 			<label>Full Name</label>
-		</th>
+            <span class="frm_help frm_icon_font frm_tooltip_icon" title data-original-title="For use with a single 'name' field. Names are split by spaces to be imported into Salesforce First Name and Last Name fields. The first word is used for the First Name, and the rest for the Last Name."></span>
+        </th>
 		<td>
 			<?php $this->select_field_for('full_name', $form_post_content, $action_control, $form_fields); ?>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			<label>First Name</label>
+		</th>
+		<td>
+			<?php $this->select_field_for('first_name', $form_post_content, $action_control, $form_fields); ?>
+            <span class="description">Skip if using full name field above.</span>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			<label>Last Name</label>
+		</th>
+		<td>
+			<?php $this->select_field_for('last_name', $form_post_content, $action_control, $form_fields); ?>
+            <span class="description">Skip if using full name field above.</span>
 		</td>
 	</tr>
 	<tr>
