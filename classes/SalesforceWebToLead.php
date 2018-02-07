@@ -77,6 +77,8 @@ class SalesforceWebToLead extends FrmFormAction {
       'lead_source' => 'Website',
       'id_status'   => '',
       'full_name'   => '',
+      'first_name'  => '',
+      'last_name'   => '',
       'email'       => '',
       'phone'       => '',
     );

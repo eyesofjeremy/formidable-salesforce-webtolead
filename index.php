@@ -57,11 +57,13 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
   $lead_type            = $settings['lead_type'];
   $id_status            = $settings['id_status'];
   
-  // Split the name for saving purposes.
-  $split_name           = frm_save_sf_split_name( $full_name );
+  // Check if we are using full name or not
+  if( isset( $full_name ) ) {
+	$split_name = frm_save_sf_split_name( $full_name );
+  }
       
-  $post['first_name']   = $split_name[0];
-  $post['last_name']    = $split_name[1];
+  $post['first_name']   = ( isset( $split_name ) ) ? $split_name[0] : $_POST['item_meta'][ $settings['first_name'] ];
+  $post['last_name']    = ( isset( $split_name ) ) ? $split_name[1] : $_POST['item_meta'][ $settings['last_name'] ];
   $post['email']        = $email;
   $post['phone']        = $phone;
       
