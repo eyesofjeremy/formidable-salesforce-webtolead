@@ -73,7 +73,7 @@ class SalesforceWebToLead extends FrmFormAction {
   function get_defaults() {
     return array(
       'oid'         => '',
-      'lead_type'   => 'Lead',
+      'lead_type'   => '',
       'lead_source' => 'Website',
       'id_status'   => '',
       'full_name'   => '',
