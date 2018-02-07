@@ -47,9 +47,14 @@ function salesforce_webtolead_go( $action, $entry, $form ) {
   
   // If email or organization are empty, can't do anything.
   if( empty( $email ) || empty( $oid ) ) {
-  
-    // TODO: send debug message to [admin_email]
-    return;
+
+	$subject = __('Formidable > Salesforce: Missing Information');
+	$message = sprintf( __("Can't send to Salesforce. Email or Organization ID was missing on the '%s' form."), $form->name );
+	$message .= sprintf( __('Entry #%s'), $entry->id );
+
+	wp_mail( get_option( 'admin_email' ), $subject, $message );
+	
+	return;
   }
   
   $full_name            = $_POST['item_meta'][ $settings['full_name'] ];
